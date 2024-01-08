@@ -38,4 +38,8 @@ public class TicketServiceImpl implements TicketService{
             existingTicket.setConcert_name(ticket.getConcert_name());
             return ticketRepository.save(existingTicket);
         }
+        @Override
+        public Ticket getTicketById(int id) {
+            return ticketRepository.findById(id).orElse(null);
+}
 }

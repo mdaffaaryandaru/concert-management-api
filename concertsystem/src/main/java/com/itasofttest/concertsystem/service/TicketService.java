@@ -14,6 +14,8 @@ public interface TicketService {
     //method untuk mengupdate ticket
     public Ticket updateTicket(int id, Ticket ticket);
 
+    public Ticket getTicketById(int id);
+
 
 
 }

@@ -38,4 +38,13 @@ public class TicketController {
         ticketService.updateTicket(id, ticket);
         return ResponseEntity.ok("Ticket with id " + id + " has been updated successfully.");
     }
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<?> getTicketById(@PathVariable int id) {
+        Ticket ticket = ticketService.getTicketById(id);
+        if (ticket != null) {
+            return ResponseEntity.ok(ticket);
+        } else {
+            return ResponseEntity.status(404).body("Ticket with id " + id + " not found.");
+        }
+    }
 }

@@ -58,22 +58,26 @@ public class WebSecurityConfig {
             }
         };
 
+        RequestMatcher getTicketById = new RequestMatcher() {
+            @Override
+            public boolean matches(HttpServletRequest request) {
+                return request.getMethod().equals(HttpMethod.GET.toString()) && request.getServletPath().startsWith("/ticket/getById/");
+            }
+        };
+
         RequestMatcher deleteMatcher = new RequestMatcher() {
             @Override
             public boolean matches(HttpServletRequest request) {
                 return request.getMethod().equals(HttpMethod.DELETE.toString()) && request.getServletPath().startsWith("/ticket/delete/");
             }
         };
-
-
-    
         http
-            .csrf(csrf -> csrf.disable())
-            .authorizeRequests(authorizeRequests -> authorizeRequests
-                .requestMatchers(loginMatcher, registerMatcher, deleteMatcher, updateMatcher, createMatcher, getAllMatcher).permitAll()
-                .anyRequest().authenticated()
-            )
-            .httpBasic(Customizer.withDefaults());
+        .csrf(csrf -> csrf.disable())
+        .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+        .requestMatchers(loginMatcher, registerMatcher, deleteMatcher, updateMatcher, createMatcher, getAllMatcher, getTicketById).permitAll()
+        .anyRequest().authenticated()
+    )
+        .httpBasic(Customizer.withDefaults());
     
         return http.build();
     }
