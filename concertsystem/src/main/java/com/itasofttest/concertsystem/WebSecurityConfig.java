@@ -43,11 +43,24 @@ public class WebSecurityConfig {
                 return request.getMethod().equals(HttpMethod.GET.toString()) && request.getServletPath().equals("/ticket/getAll");
             }
         };
+        RequestMatcher getAllMaster= new RequestMatcher() {
+            @Override
+            public boolean matches(HttpServletRequest request) {
+                return request.getMethod().equals(HttpMethod.GET.toString()) && request.getServletPath().equals("/master/getAllMaster");
+            }
+        };
 
         RequestMatcher createMatcher = new RequestMatcher() {
             @Override
             public boolean matches(HttpServletRequest request) {
                 return request.getMethod().equals(HttpMethod.POST.toString()) && request.getServletPath().equals("/ticket/create");
+            }
+        };
+
+        RequestMatcher CreateMaster = new RequestMatcher() {
+            @Override
+            public boolean matches(HttpServletRequest request) {
+                return request.getMethod().equals(HttpMethod.POST.toString()) && request.getServletPath().equals("/master/create");
             }
         };
 
@@ -74,7 +87,7 @@ public class WebSecurityConfig {
         http
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-        .requestMatchers(loginMatcher, registerMatcher, deleteMatcher, updateMatcher, createMatcher, getAllMatcher, getTicketById).permitAll()
+        .requestMatchers(loginMatcher, registerMatcher, deleteMatcher, updateMatcher, createMatcher, getAllMatcher, getTicketById, getAllMaster, CreateMaster).permitAll()
         .anyRequest().authenticated()
     )
         .httpBasic(Customizer.withDefaults());

@@ -14,6 +14,7 @@ public class Ticket {
     private String buyer_email;
     private String buyer_phone;
     private String concert_name;
+    private String category;
 
    @Temporal(TemporalType.TIMESTAMP)
     private Date created_at;
@@ -62,6 +63,14 @@ public class Ticket {
 
     public void setConcert_name(String concert_name) {
         this.concert_name = concert_name;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public Date getCreated_at() {
